@@ -392,7 +392,7 @@ const Proto = {
       )
       // Register with the parent before the execution id is computed, so a
       // sibling that suspends first waits for this child to be dispatched.
-      return opts?.discard ? run : withPendingActivity(run)
+      return withPendingActivity(run)
     }).pipe(
       Effect.withSpan(
         `${this._tag}.execute`,
@@ -809,9 +809,7 @@ export const wrapActivityResult = <A, E, R>(
             ? Cause.combine(instance.cause, exit.value.cause)
             : exit.value.cause
         }
-        return isSuspended && instance.activityState.count > 0
-          ? waitForZero(instance)
-          : Effect.void
+        return isSuspended ? waitForZero(instance) : Effect.void
       }
     )
   })
