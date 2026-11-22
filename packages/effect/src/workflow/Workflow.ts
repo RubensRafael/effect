@@ -375,7 +375,9 @@ const Proto = {
   ) {
     return Effect.suspend(() => {
       const payload = this.payloadSchema.make(fields)
-      const run = Effect.flatMap(
+      // Register with the parent before the execution id is computed, so a
+      // sibling that suspends first waits for this child to be dispatched.
+      return withPendingActivity(Effect.flatMap(
         EngineTag,
         (engine) =>
           Effect.flatMap(makeExecutionIdFromPayload(this, payload), (executionId) =>
@@ -389,10 +391,7 @@ const Proto = {
                 suspendedRetrySchedule: this.suspendedRetrySchedule
               })
             ))
-      )
-      // Register with the parent before the execution id is computed, so a
-      // sibling that suspends first waits for this child to be dispatched.
-      return withPendingActivity(run)
+      ))
     }).pipe(
       Effect.withSpan(
         `${this._tag}.execute`,
@@ -796,20 +795,20 @@ export const wrapActivityResult = <A, E, R>(
     return Effect.acquireUseRelease(
       Effect.sync(() => adoptActivityUnsafe(context, instance) ?? registerActivityUnsafe(instance)),
       () => effect,
-      (registration, exit) => {
-        releaseActivityUnsafe(registration)
-        if (
-          Exit.isSuccess(exit) &&
-          isResult(exit.value) &&
-          exit.value._tag === "Suspended" &&
-          exit.value.cause
-        ) {
-          instance.cause = instance.cause
-            ? Cause.combine(instance.cause, exit.value.cause)
-            : exit.value.cause
-        }
-        return Effect.void
-      }
+      (registration, exit) =>
+        Effect.sync(() => {
+          releaseActivityUnsafe(registration)
+          if (
+            Exit.isSuccess(exit) &&
+            isResult(exit.value) &&
+            exit.value._tag === "Suspended" &&
+            exit.value.cause
+          ) {
+            instance.cause = instance.cause
+              ? Cause.combine(instance.cause, exit.value.cause)
+              : exit.value.cause
+          }
+        })
     ).pipe(
       Effect.tap((value) => isSuspend(value) ? waitForZero(instance) : Effect.void)
     )
@@ -857,7 +856,8 @@ const releaseActivityUnsafe = (registration: ActivityRegistration) => {
 /**
  * Registers a pending child workflow execution with the current workflow
  * instance before any asynchronous work runs. `wrapActivityResult` adopts the
- * registration once the execution is dispatched.
+ * registration once the execution is dispatched. Discarded executions are
+ * never adopted, so their registration is released once dispatch returns.
  */
 const withPendingActivity = <A, E, R>(effect: Effect.Effect<A, E, R>): Effect.Effect<A, E, R> =>
   Effect.contextWith((context: Context.Context<never>) => {
