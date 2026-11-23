@@ -1,5 +1,45 @@
 # effect
 
+## 4.1.6
+
+### Patch Changes
+
+- [#10845](https://github.com/Effect-TS/effect/pull/10845) [`dd5f2f3`](https://github.com/Effect-TS/effect/commit/dd5f2f322fbad042a3a186cef593bf42affe5ce9) Thanks @effect-bot! - Add standalone `effect/ai/Skill` module and accept `Skill` values in `McpServer.registerSkill` and `McpServer.skill`.
+
+- [#10802](https://github.com/Effect-TS/effect/pull/10802) [`5aaa2cd`](https://github.com/Effect-TS/effect/commit/5aaa2cd216e5e55f92d06db98d4b54946a396eed) Thanks @KhraksMamtsov! - Fix `Effect.catchReasons` error-channel inference for exhaustive handlers and failing `orElse` fallbacks.
+
+- [#10812](https://github.com/Effect-TS/effect/pull/10812) [`9f415a7`](https://github.com/Effect-TS/effect/commit/9f415a7733cdf8aed7efadbed3b5db22890e164a) Thanks @AVtheking! - Fix a memory leak in cluster `MessageStorage.registerReplyHandler` when interrupted reply waiters leave stale request entries behind.
+
+- [#10840](https://github.com/Effect-TS/effect/pull/10840) [`d5d2112`](https://github.com/Effect-TS/effect/commit/d5d21120ff591fcf8da006ce340010812cc91f16) Thanks @SelmanBoray! - Fix `HttpMiddleware.cors` omitting the `Access-Control-Max-Age` header when `maxAge` is `0`.
+
+- [#10860](https://github.com/Effect-TS/effect/pull/10860) [`a9540d3`](https://github.com/Effect-TS/effect/commit/a9540d3d50fbe65ade7f9b2f478cdd34a888161e) Thanks @effect-bot! - Fix `FetchHttpClient` to resolve `globalThis.fetch` on each request instead of caching the first reference it sees.
+
+- [#10836](https://github.com/Effect-TS/effect/pull/10836) [`ce44141`](https://github.com/Effect-TS/effect/commit/ce44141ad1bc8d05f3f7399bfa1e87772573205d) Thanks @Marve10s! - Fix `Chat` history ordering so approved or denied tool results are placed before the assistant response.
+
+- [#10819](https://github.com/Effect-TS/effect/pull/10819) [`9318e5b`](https://github.com/Effect-TS/effect/commit/9318e5bafb144ddff65a0bff0148ec4f7ba77b5c) Thanks @effect-bot! - Fix forked fibers interrupted before starting sometimes running their effect instead of exiting interrupted.
+
+- [#10854](https://github.com/Effect-TS/effect/pull/10854) [`c9ecebf`](https://github.com/Effect-TS/effect/commit/c9ecebf7ede8a98895552fd20223d6573bd846fe) Thanks @effect-bot! - Add the missing runtime `pipe` method to `RpcGroup`.
+
+- [#10817](https://github.com/Effect-TS/effect/pull/10817) [`594fa71`](https://github.com/Effect-TS/effect/commit/594fa71da417bf94fa6c9be2d3d36c808197e9fe) Thanks @effect-bot! - Add RFC 8288 `Link` header support (`Headers.parseLink`, `Headers.formatLink`, `Schema.LinkHeaderFromString`, `HttpClientResponse.links`/`link`) and header-appending helpers (`Headers.append`, `HttpClientRequest.appendHeader`, `HttpServerResponse.appendHeader`).
+
+- [#10834](https://github.com/Effect-TS/effect/pull/10834) [`310a81b`](https://github.com/Effect-TS/effect/commit/310a81b391e24d42b6608b5e3d641eca63e0d4c0) Thanks @Marve10s! - Fix `Migrator` skipping a migration with id `0` (such as `0000_init`) on a fresh database.
+
+- [#10811](https://github.com/Effect-TS/effect/pull/10811) [`aab2135`](https://github.com/Effect-TS/effect/commit/aab2135d3fe43d4d86c4e486ed378797314fb212) Thanks @asssslay! - Fix `Order.clamp` (and module `clamp` wrappers) returning the bound instead of the input value when the input compares equal to a bound.
+
+- [#10820](https://github.com/Effect-TS/effect/pull/10820) [`848d042`](https://github.com/Effect-TS/effect/commit/848d0426f287b3e7ff970219d980a4c66fa441ad) Thanks @effect-bot! - Trace batched `RpcClient.layerProtocolHttp` requests in a root `RpcClient.batch` span linked to each caller span.
+
+- [#10872](https://github.com/Effect-TS/effect/pull/10872) [`482b104`](https://github.com/Effect-TS/effect/commit/482b104caf712a8d5f99aafc64e55b6ea38eb809) Thanks @effect-bot! - Reduce the overhead of `SqlClient` transactions and savepoints by avoiding a redundant copy of the caller's services.
+
+- [#10857](https://github.com/Effect-TS/effect/pull/10857) [`0d2bb4a`](https://github.com/Effect-TS/effect/commit/0d2bb4a4b6526e1767b81101ee6e8da88ba1de55) Thanks @effect-bot! - Start both input sides immediately in `Stream.merge` and `Channel.merge`.
+
+- [#10818](https://github.com/Effect-TS/effect/pull/10818) [`49f5391`](https://github.com/Effect-TS/effect/commit/49f53918a150aa2ea0ce2d444400cec1d6097400) Thanks @effect-bot! - Fix `Workflow.intoResult` to capture compensation defects in terminal `Complete` results when `Workflow.CaptureDefects` is enabled.
+
+- [#10844](https://github.com/Effect-TS/effect/pull/10844) [`3d59bdf`](https://github.com/Effect-TS/effect/commit/3d59bdf6f8f95ceea2091e5b8f375b834a14b3b1) Thanks @RhysSullivan! - Fix `Workflow.execute` with `{ discard: true }` being interrupted before dispatch when a sibling suspends on a durable wait.
+
+- [#10868](https://github.com/Effect-TS/effect/pull/10868) [`69fd4b1`](https://github.com/Effect-TS/effect/commit/69fd4b1fba9e2ec5e7c16058ff8d9a1f9a38d90e) Thanks @effect-bot! - Fail with a defect instead of hanging when a workflow awaits its own execution.
+
+- [#10684](https://github.com/Effect-TS/effect/pull/10684) [`800b753`](https://github.com/Effect-TS/effect/commit/800b7535b4e37a24ac458cae78231054dae0b0f5) Thanks @jpowersdev! - Support Clark-notation namespace matching (`{uri}local`, `{*}local`, `{}local`) in `Xml.elements`, and preserve `namespace` and `localName` on collected elements and `Xml.toEvents` output.
+
 ## 4.1.5
 
 ### Patch Changes

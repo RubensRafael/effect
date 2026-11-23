@@ -1,5 +1,12 @@
 # @effect/ai-cloudflare
 
+## 4.1.6
+
+### Patch Changes
+
+- Updated dependencies [[`dd5f2f3`](https://github.com/Effect-TS/effect/commit/dd5f2f322fbad042a3a186cef593bf42affe5ce9), [`5aaa2cd`](https://github.com/Effect-TS/effect/commit/5aaa2cd216e5e55f92d06db98d4b54946a396eed), [`9f415a7`](https://github.com/Effect-TS/effect/commit/9f415a7733cdf8aed7efadbed3b5db22890e164a), [`d5d2112`](https://github.com/Effect-TS/effect/commit/d5d21120ff591fcf8da006ce340010812cc91f16), [`a9540d3`](https://github.com/Effect-TS/effect/commit/a9540d3d50fbe65ade7f9b2f478cdd34a888161e), [`ce44141`](https://github.com/Effect-TS/effect/commit/ce44141ad1bc8d05f3f7399bfa1e87772573205d), [`9318e5b`](https://github.com/Effect-TS/effect/commit/9318e5bafb144ddff65a0bff0148ec4f7ba77b5c), [`c9ecebf`](https://github.com/Effect-TS/effect/commit/c9ecebf7ede8a98895552fd20223d6573bd846fe), [`594fa71`](https://github.com/Effect-TS/effect/commit/594fa71da417bf94fa6c9be2d3d36c808197e9fe), [`310a81b`](https://github.com/Effect-TS/effect/commit/310a81b391e24d42b6608b5e3d641eca63e0d4c0), [`aab2135`](https://github.com/Effect-TS/effect/commit/aab2135d3fe43d4d86c4e486ed378797314fb212), [`848d042`](https://github.com/Effect-TS/effect/commit/848d0426f287b3e7ff970219d980a4c66fa441ad), [`482b104`](https://github.com/Effect-TS/effect/commit/482b104caf712a8d5f99aafc64e55b6ea38eb809), [`0d2bb4a`](https://github.com/Effect-TS/effect/commit/0d2bb4a4b6526e1767b81101ee6e8da88ba1de55), [`49f5391`](https://github.com/Effect-TS/effect/commit/49f53918a150aa2ea0ce2d444400cec1d6097400), [`3d59bdf`](https://github.com/Effect-TS/effect/commit/3d59bdf6f8f95ceea2091e5b8f375b834a14b3b1), [`69fd4b1`](https://github.com/Effect-TS/effect/commit/69fd4b1fba9e2ec5e7c16058ff8d9a1f9a38d90e), [`800b753`](https://github.com/Effect-TS/effect/commit/800b7535b4e37a24ac458cae78231054dae0b0f5)]:
+  - effect@4.1.6
+
 ## 4.1.5
 
 ### Patch Changes
